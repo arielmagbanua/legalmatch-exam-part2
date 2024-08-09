@@ -1,10 +1,13 @@
-import EmployeeService from "../services/EmployeeService";
-
-const service = new EmployeeService();
+import {useContext} from "react";
+import DependenciesContext from "../context/Dependencies";
 
 function Employees() {
+  const {employeeService} = useContext(DependenciesContext);
+  console.log(employeeService.all());
   return (
-    <div>{service.foo()}</div>
+    <div className="employees">
+      
+    </div>
   )
 }
 
