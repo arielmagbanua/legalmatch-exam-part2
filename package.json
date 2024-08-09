@@ -11,9 +11,13 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.3",
-    "classes": "^0.3.0",
+    "classnames": "^2.5.1",
+    "i": "^0.3.7",
     "json-server-auth": "^2.1.0",
+    "json2typescript": "^1.5.1",
+    "npm": "^10.8.2",
     "react": "^18.3.1",
+    "react-data-table-component": "^7.6.2",
     "react-dom": "^18.3.1",
     "react-router": "^6.26.0",
     "react-router-dom": "^6.26.0",
@@ -25,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server -p 3001 --watch db.json"
   },
   "eslintConfig": {
     "extends": [

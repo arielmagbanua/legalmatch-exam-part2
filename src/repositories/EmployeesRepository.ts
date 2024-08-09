@@ -1,14 +1,20 @@
 import Employee from "../models/Employee";
+import axios from "axios";
+
+// TODO: transfer this to configuration
+const API_URL = "http://localhost:3001";
 
 interface EmployeesRepository {
-  all(): Promise<Employee[]>;
+  all(): Promise<any[]>;
 }
 
-class EmployeeRepositoryImplementation implements EmployeesRepository{
-  all(): Promise<Employee[]> {
-    return Promise.resolve([]);
+class EmployeesRepositoryImplementation implements EmployeesRepository{
+  async all(): Promise<any[]> {
+    const response = await axios.get(`${API_URL}/employees`);
+
+    return response.data;
   }
 }
 
 export type {EmployeesRepository}
-export default EmployeeRepositoryImplementation;
+export default EmployeesRepositoryImplementation;

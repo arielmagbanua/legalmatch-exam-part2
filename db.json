@@ -6,6 +6,29 @@
     }
   ],
   "employees": [
-
+    {
+      "id": 1,
+      "firstName": "Ariel",
+      "middleName": "Cacanog",
+      "lastName": "Magbanua",
+      "age": 36,
+      "birthDate": "1999-05-01",
+      "maritalStatus": "married",
+      "position": "Developer",
+      "dateHired": "2019-08-09",
+      "contacts": [
+        {
+          "number": "123-222",
+          "primary": true
+        }
+      ],
+      "addresses": [
+        {
+          "line1": "Foo Street",
+          "line2": "Brgy. Bar, Davao City",
+          "primary": true
+        }
+      ]
+    }
   ]
 }
