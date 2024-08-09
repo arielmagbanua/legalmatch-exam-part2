@@ -1,11 +1,15 @@
+// @ts-ignore
 import React from "react";
+// @ts-ignore
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import router from "./routes";
 import reportWebVitals from "./reportWebVitals";
 import {RouterProvider} from "react-router";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement
+);
 root.render(
   <RouterProvider router={router}/>
 );
