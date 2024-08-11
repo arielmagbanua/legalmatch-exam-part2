@@ -7,6 +7,7 @@ import {MdDeleteForever} from "react-icons/md";
 import RoundIconButton from "../components/RoundIconButton";
 import {IoMdSave} from "react-icons/io";
 import {useSnackbar} from "notistack";
+import ContactsInfo from "../components/ContactsInfo";
 
 function Employee() {
   const {id} = useParams();
@@ -42,7 +43,6 @@ function Employee() {
   const handleDeleteClick = (id) => {
     employeeService.delete(id)
       .then((res) => {
-        console.log(res);
         enqueueSnackbar('The new user was deleted successfully!');
 
         // navigate back to previous route
@@ -60,7 +60,6 @@ function Employee() {
       // this means user is new so create it
       employeeService.add(employee)
         .then((res) => {
-          console.log(res);
           enqueueSnackbar('The new user was added successfully!');
 
           // navigate back to previous route
@@ -70,7 +69,25 @@ function Employee() {
           console.log(err);
           enqueueSnackbar('Something went wrong!');
         })
+    } else {
+      employeeService.update(employee.id, employee)
+        .then((res) => {
+          enqueueSnackbar('The new user was edited successfully!');
+
+          // navigate back to previous route
+          navigate('/employees');
+        })
+        .catch((err) => {
+          console.log(err);
+          enqueueSnackbar('Something went wrong!');
+        })
     }
+  }
+
+  const handleContactsChange = (updateContacts) => {
+    setEmployee({
+      ...employee, contacts: updateContacts
+    });
   }
 
   return (
@@ -144,13 +161,11 @@ function Employee() {
           />
         </section>
         <section className="employee__others flex flex-col gro pt-4">
-          <div className="employee__others__contact flex flex-col items-start justify-center">
-            <p className="text-xl py-1.5">Contact Info: </p>
-            <div className="flex flex-col items-start justify-center">
-              <TextField placeholder="Phone Number"/>
-              <TextField placeholder="Phone Number"/>
-            </div>
-          </div>
+          <ContactsInfo
+            className="employee__others__contact mb-4"
+            contacts={employee.contacts}
+            onContactsChange={handleContactsChange}
+          />
 
           <div className="employee__others__address flex flex-col items-start justify-center">
             <p className="text-xl">Address Info: </p>
