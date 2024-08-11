@@ -7,13 +7,15 @@ import router from "./routes";
 import reportWebVitals from "./reportWebVitals";
 import {RouterProvider} from "react-router";
 import {Provider as DependencyProvider} from "./context/Dependencies";
+import Header from "./components/Header";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
   <DependencyProvider>
-     <RouterProvider router={router}/>
+    <Header className="p-6"/>
+    <RouterProvider router={router}/>
   </DependencyProvider>
 );
 

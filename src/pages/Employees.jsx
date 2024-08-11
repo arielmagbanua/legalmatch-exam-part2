@@ -2,13 +2,16 @@ import {useContext, useEffect, useState} from "react";
 import DependenciesContext from "../context/Dependencies";
 import DataTable from 'react-data-table-component';
 import getYearDifference from "../utils/dates";
-import Header from "../components/Header";
 import RoundIconButton from "../components/RoundIconButton";
 import {MdDeleteForever, MdEditSquare} from "react-icons/md";
+import {IoMdPersonAdd} from "react-icons/io";
+import {useNavigate} from "react-router";
+import RoundIconLink from "../components/RoundIconLink";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
   const {employeeService} = useContext(DependenciesContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -18,12 +21,16 @@ function Employees() {
     fetchEmployees().then((data) => setEmployees(data));
   }, [employeeService]);
 
-  const handleEditClick = (employee) => {
-    // TODO: redirect to edit screen
+  const handleEditClick = (id) => {
+    navigate('/employees/' + id);
   }
 
   const handleDeleteClick = (id) => {
-    // TODO: delete employee
+    navigate('/employees/' + id + '/delete');
+  }
+
+  const handleAddClick = () => {
+    navigate('/employees/add');
   }
 
   const columns = [
@@ -58,10 +65,10 @@ function Employees() {
       selector: (row) => {
         return (
           <div className="flex items-center justify-center">
-            <RoundIconButton
+            <RoundIconLink
               className="bg-green-400 my-4"
               icon={<MdEditSquare/>}
-              onClick={() => handleEditClick(row)}
+              to={`/employees/${row.id}`}
             />
             <RoundIconButton
               className="bg-red-400 my-4"
@@ -75,18 +82,21 @@ function Employees() {
   ];
 
   return (
-    <>
-      <Header className="p-6"/>
-      <section className="employees m-6 mx-32 flex flex-col flex-nowrap">
-        <div className="controls flex">
-          
+    <main className="m-6 mx-32 flex flex-col flex-nowrap">
+      <section className="employees-table">
+        <div className="controls flex items-start justify-start">
+          <RoundIconLink
+            className="bg-green-400 my-4"
+            icon={<IoMdPersonAdd/>}
+            to={`/employees/add`}
+          />
         </div>
         <DataTable
           columns={columns}
           data={employees}
         />
       </section>
-    </>
+    </main>
   )
 }
 
