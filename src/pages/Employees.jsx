@@ -5,13 +5,14 @@ import getYearDifference from "../utils/dates";
 import RoundIconButton from "../components/RoundIconButton";
 import {MdDeleteForever, MdEditSquare} from "react-icons/md";
 import {IoMdPersonAdd} from "react-icons/io";
-import {useNavigate} from "react-router";
 import RoundIconLink from "../components/RoundIconLink";
+import {useSnackbar} from "notistack";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
+
+  const {enqueueSnackbar} = useSnackbar();
   const {employeeService} = useContext(DependenciesContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -22,7 +23,20 @@ function Employees() {
   }, [employeeService]);
 
   const handleDeleteClick = (id) => {
-    navigate('/employees/' + id + '/delete');
+    // remove from front-end
+    const updatedEmployees = employees.filter((employee) => employee.id !== id);
+
+    employeeService.delete(id)
+      .then((res) => {
+        console.log(res);
+        enqueueSnackbar('The new user was deleted successfully!');
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar('Something went wrong!');
+      });
+
+    setEmployees(updatedEmployees);
   }
 
   const columns = [
@@ -33,6 +47,10 @@ function Employees() {
     {
       name: 'Address',
       selector: (row) => {
+        if (!row.addresses) {
+          return '';
+        }
+
         const primaryAddress = row.addresses.filter((address) => address.primary)[0];
         return `${primaryAddress.line1} ${primaryAddress.line2}`;
       }
@@ -40,6 +58,10 @@ function Employees() {
     {
       name: 'Phone Number',
       selector: (row) => {
+        if (!row.contacts) {
+          return '';
+        }
+
         const primaryContact = row.contacts.filter((contact) => contact.primary)[0];
         return primaryContact.number;
       }

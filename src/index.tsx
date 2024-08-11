@@ -8,6 +8,8 @@ import reportWebVitals from "./reportWebVitals";
 import {RouterProvider} from "react-router";
 import {Provider as DependencyProvider} from "./context/Dependencies";
 import Header from "./components/Header";
+import { SnackbarProvider } from 'notistack';
+
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -15,7 +17,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <DependencyProvider>
     <Header className="p-6"/>
-    <RouterProvider router={router}/>
+    <SnackbarProvider autoHideDuration={3000}>
+      <RouterProvider router={router}/>
+    </SnackbarProvider>
   </DependencyProvider>
 );
 

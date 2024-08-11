@@ -7,11 +7,11 @@
   ],
   "employees": [
     {
-      "id": 1,
+      "id": "148b",
       "firstName": "Ariel",
       "middleName": "Cacanog",
       "lastName": "Magbanua",
-      "age": 36,
+      "gender": "M",
       "birthDate": "1999-05-01",
       "maritalStatus": "married",
       "position": "Developer",
