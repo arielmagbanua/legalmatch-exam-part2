@@ -21,16 +21,8 @@ function Employees() {
     fetchEmployees().then((data) => setEmployees(data));
   }, [employeeService]);
 
-  const handleEditClick = (id) => {
-    navigate('/employees/' + id);
-  }
-
   const handleDeleteClick = (id) => {
     navigate('/employees/' + id + '/delete');
-  }
-
-  const handleAddClick = () => {
-    navigate('/employees/add');
   }
 
   const columns = [
