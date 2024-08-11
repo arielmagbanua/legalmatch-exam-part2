@@ -7,13 +7,19 @@ import router from "./routes";
 import reportWebVitals from "./reportWebVitals";
 import {RouterProvider} from "react-router";
 import {Provider as DependencyProvider} from "./context/Dependencies";
+import Header from "./components/Header";
+import { SnackbarProvider } from 'notistack';
+
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
   <DependencyProvider>
-     <RouterProvider router={router}/>
+    <Header className="p-6"/>
+    <SnackbarProvider autoHideDuration={3000}>
+      <RouterProvider router={router}/>
+    </SnackbarProvider>
   </DependencyProvider>
 );
 

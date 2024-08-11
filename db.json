@@ -7,26 +7,39 @@
   ],
   "employees": [
     {
-      "id": 1,
-      "firstName": "Ariel",
+      "id": "148b",
+      "firstName": "Yuri",
       "middleName": "Cacanog",
       "lastName": "Magbanua",
-      "age": 36,
+      "gender": "M",
       "birthDate": "1999-05-01",
       "maritalStatus": "married",
       "position": "Developer",
       "dateHired": "2019-08-09",
       "contacts": [
         {
-          "number": "123-222",
+          "id": "112233sdf",
+          "number": "124-222",
+          "primary": false
+        },
+        {
+          "id": "09345ssdfs",
+          "number": "125-222-3333",
           "primary": true
         }
       ],
       "addresses": [
         {
+          "id": "sadjflkj12es",
           "line1": "Foo Street",
           "line2": "Brgy. Bar, Davao City",
           "primary": true
+        },
+        {
+          "id": "3245dfgpsid",
+          "line1": "Bar Street",
+          "line2": "Brgy. Ambot, Davao City",
+          "primary": false
         }
       ]
     }
