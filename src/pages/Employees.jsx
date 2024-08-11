@@ -3,6 +3,8 @@ import DependenciesContext from "../context/Dependencies";
 import DataTable from 'react-data-table-component';
 import getYearDifference from "../utils/dates";
 import Header from "../components/Header";
+import RoundIconButton from "../components/RoundIconButton";
+import {MdDeleteForever, MdEditSquare} from "react-icons/md";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -16,7 +18,13 @@ function Employees() {
     fetchEmployees().then((data) => setEmployees(data));
   }, [employeeService]);
 
-  console.log(employees);
+  const handleEditClick = (employee) => {
+    // TODO: redirect to edit screen
+  }
+
+  const handleDeleteClick = (id) => {
+    // TODO: delete employee
+  }
 
   const columns = [
     {
@@ -44,6 +52,25 @@ function Employees() {
     {
       name: 'Years in the Company',
       selector: (row) => getYearDifference(new Date(row.dateHired))
+    },
+    {
+      name: '',
+      selector: (row) => {
+        return (
+          <div className="flex items-center justify-center">
+            <RoundIconButton
+              className="bg-green-400 my-4"
+              icon={<MdEditSquare/>}
+              onClick={() => handleEditClick(row)}
+            />
+            <RoundIconButton
+              className="bg-red-400 my-4"
+              icon={<MdDeleteForever/>}
+              onClick={() => handleDeleteClick(row.id)}
+            />
+          </div>
+        );
+      }
     }
   ];
 
