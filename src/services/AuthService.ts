@@ -16,6 +16,10 @@ class AuthService {
   currentUser(): any {
     return this.repo.currentUser();
   }
+
+  register(email: string, password: string) {
+    return this.repo.register(email, password);
+  }
 }
 
 export default AuthService;

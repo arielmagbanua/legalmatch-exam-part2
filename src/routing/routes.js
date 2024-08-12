@@ -5,11 +5,16 @@ import Login from "../pages/Login";
 import Employee from "../pages/Employee";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Header from "../components/Header";
+import RegisterUser from "../pages/RegisterUser";
 
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login/>
+  },
+  {
+    path: "/register",
+    element: <RegisterUser/>
   },
   {
     path: "/",

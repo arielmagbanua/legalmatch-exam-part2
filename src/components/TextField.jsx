@@ -12,11 +12,10 @@ function TextField({id, className, label, value, placeholder, onChange, required
     }
 
     if (onChange) {
+      // parent component can return a boolean for validation process
       const result = onChange(inputValue);
       if (result !== null && result !== undefined) {
-        if (!result) {
-          setValid(false);
-        }
+        setValid(result);
       }
     }
   }
