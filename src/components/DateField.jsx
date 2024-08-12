@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import {useState} from "react";
 
-function DateField({id, label, value, placeholder, onChange, required = false}) {
+function DateField({id, label, value, placeholder, onChange, required = false, ...restProps}) {
   const [valid, setValid] = useState(true);
 
   const handleChange = (event) => {
@@ -44,15 +44,18 @@ function DateField({id, label, value, placeholder, onChange, required = false}) 
   );
 
   return (
-    <div className="flext w-full m-2 p-2 items-start justify-evenly">
-      {label && <label htmlFor={id} className="mr-2">{label}</label>}
+    <div className="flext w-full p-2 items-start justify-evenly">
+      <div className="flex items-center justify-between">
+        {label && <label htmlFor={id} className="mx-2 py-2">{label}</label>}
+      </div>
       <input
-        type="date"
         id={id}
+        type="date"
         defaultValue={value}
         className={valid ? validClasses : invalidClasses}
-        placeholder={placeholder}
+        placeholder={label ? '' : placeholder}
         onChange={handleChange}
+        {...restProps}
       />
     </div>
   );

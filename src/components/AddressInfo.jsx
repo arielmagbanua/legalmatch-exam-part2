@@ -127,11 +127,13 @@ function AddressInfo({className, addresses, onAddressesChange}) {
         <div className="flex items-start justify-center">
           <TextField
             placeholder="Address Line 1"
+            label="Address Line 1"
             value={line1}
             onChange={(value) => handleLine1Change(addressId, value)}/>
 
           <TextField
             placeholder="Address Line 2"
+            label="Address Line 2"
             value={line2}
             onChange={(value) => handleLine2Change(addressId, value)}/>
         </div>
