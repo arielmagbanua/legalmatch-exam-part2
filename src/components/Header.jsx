@@ -13,7 +13,14 @@ export function Header({className, title}) {
   const [authUser, setAuthUser, removeAuthUser] = useLocalStorage('auth_user', null);
 
   const classes = classNames(
-    'header fixed items-center justify-between flex text-2xl px-32 py-4 w-full shadow-md bg-gray-300 z-10',
+    'header fixed items-center justify-between flex text-2xl px-32 py-4 w-full shadow-md bg-gray-400 z-10',
+    '2xl:px-32 2xl:pt-[96px]',
+    'lg:px-24',
+    'md:px-12',
+    'sm:px-8',
+    'xs:px-4',
+    'xxs:px-4',
+    '2xxs:px-4',
     className,
   );
 

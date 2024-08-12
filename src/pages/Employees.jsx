@@ -7,6 +7,7 @@ import {IoMdPersonAdd} from "react-icons/io";
 import RoundIconLink from "../components/RoundIconLink";
 import {useSnackbar} from "notistack";
 import {useDependencies} from "../context/Dependencies";
+import classNames from "classnames";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -15,15 +16,13 @@ function Employees() {
   const {employeeService} = useDependencies();
 
   useEffect(() => {
-    const unsubscribe = employeeService.allRealtime((snapshot) => {
+    return employeeService.allRealtime((snapshot) => {
       const employees = []
       snapshot.forEach((doc) => employees.push({...doc.data(), id: doc.id}));
 
       console.log('Employees - useEffect()');
       setEmployees(employees);
     });
-
-    return unsubscribe;
   }, [employeeService]);
 
   const handleDeleteClick = (id) => {
@@ -46,10 +45,12 @@ function Employees() {
   const columns = [
     {
       name: 'Name',
+      sortable: true,
       selector: (row) => `${row.firstName} ${row.lastName}`,
     },
     {
       name: 'Address',
+      sortable: true,
       selector: (row) => {
         if (!row.addresses) {
           return '';
@@ -61,6 +62,7 @@ function Employees() {
     },
     {
       name: 'Phone Number',
+      sortable: true,
       selector: (row) => {
         if (!row.contacts) {
           return '';
@@ -72,10 +74,12 @@ function Employees() {
     },
     {
       name: 'Age',
+      sortable: true,
       selector: row => row.age
     },
     {
       name: 'Years in the Company',
+      sortable: true,
       selector: (row) => getYearDifference(new Date(row.dateHired))
     },
     {
@@ -99,8 +103,19 @@ function Employees() {
     }
   ];
 
+  const mainClasses = classNames(
+    'px-32 flex flex-col flex-nowrap pt-[96px]',
+    '2xl:px-32 2xl:pt-[96px]',
+    'lg:px-24',
+    'md:px-12',
+    'sm:px-8',
+    'xs:px-4',
+    'xxs:px-4',
+    '2xxs:px-4'
+  );
+
   return (
-    <main className="px-32 flex flex-col flex-nowrap pt-[96px]">
+    <main className={mainClasses}>
       <section className="employees-table">
         <div className="controls flex items-start justify-start">
           <RoundIconLink
@@ -112,6 +127,7 @@ function Employees() {
         <DataTable
           columns={columns}
           data={employees}
+          pagination
         />
       </section>
     </main>
