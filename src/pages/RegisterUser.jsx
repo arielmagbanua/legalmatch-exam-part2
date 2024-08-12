@@ -6,6 +6,7 @@ import {Navigate, useNavigate} from "react-router";
 import {useSnackbar} from "notistack";
 import validateEmail from "../utils/validateEmail";
 import {Link} from "react-router-dom";
+import classNames from "classnames";
 
 
 function RegisterUser() {
@@ -57,8 +58,17 @@ function RegisterUser() {
     return password === confirmPassword;
   }
 
+  const wrapperClassName = classNames(
+    'class flex min-h-full flex-col justify-center px-6 py-14 lg:px-8',
+    '2xl:py-[350px]',
+    'xl:py-48',
+    'lg:py-44',
+    'md:py-40',
+    'sm:py-32'
+  );
+
   return currentUser ? <Navigate to="/employees"/> : (
-    <div className="flex min-h-full flex-col justify-center px-6 py-14 lg:px-8">
+    <div className={wrapperClassName}>
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-14 w-auto" src={logo} alt="Your Company"/>
         <h2
