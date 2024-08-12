@@ -2,7 +2,7 @@ import logo from '../assets/logo.svg';
 import TextField from "../components/TextField";
 import {useState} from "react";
 import {useDependencies} from "../context/Dependencies";
-import {useNavigate} from "react-router";
+import {Navigate, useNavigate} from "react-router";
 import {useSnackbar} from "notistack";
 
 
@@ -10,11 +10,11 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {setUser} = useDependencies();
+  const {currentUser, authService, setSignedIn} = useDependencies();
   const navigate = useNavigate();
   const {enqueueSnackbar} = useSnackbar();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // validate email
@@ -23,14 +23,13 @@ function Login() {
       return;
     }
 
-    // TODO: temporary
-    if (email === 'legalmatch@tester.com' && password === 'l3g@lmatch') {
-      setUser({
-        email: email,
-        password: password
-      });
-
-      navigate('/employees');
+    const user = await authService.login(email, password);
+    if (user) {
+      setSignedIn(true);
+      console.log('sign-in');
+      console.log(user);
+      // successfully logged in
+      navigate(('/employees'));
     }
   }
 
@@ -53,7 +52,7 @@ function Login() {
     }
   };
 
-  return (
+  return currentUser ? <Navigate to="/employees" /> : (
     <div className="flex min-h-full flex-col justify-center px-6 py-14 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-14 w-auto" src={logo} alt="Your Company"/>

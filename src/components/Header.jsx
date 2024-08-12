@@ -2,17 +2,26 @@ import classNames from "classnames";
 import RoundIconButton from "./RoundIconButton";
 import {IoLogOut} from "react-icons/io5";
 import {useNavigate} from "react-router";
+import {useDependencies} from "../context/Dependencies";
+import {useSnackbar} from "notistack";
 
 export function Header({className, title}) {
   const navigate = useNavigate();
+  const {setSignedIn, authService} = useDependencies();
+  const {enqueueSnackbar} = useSnackbar();
 
   const classes = classNames(
     'header fixed items-center justify-between flex text-2xl px-32 py-4 w-full shadow-md bg-gray-300 z-10',
     className,
   );
 
-  const handleLogoutClick = () => {
-    navigate('/login');
+  const handleLogoutClick = async () => {
+    authService.logout().then((_) => {
+      setSignedIn(false);
+      navigate('/login');
+    }).catch((_) => {
+      enqueueSnackbar('Failed to logout!');
+    });
   }
 
   return (

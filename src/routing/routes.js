@@ -12,6 +12,16 @@ const router = createBrowserRouter([
     element: <Login/>
   },
   {
+    path: "/",
+    index: true,
+    element: (
+      <ProtectedRoutes>
+        <Header title="Employees"/>
+        <Employees/>
+      </ProtectedRoutes>
+    ),
+  },
+  {
     path: "/employees",
     element: (
       <ProtectedRoutes>
