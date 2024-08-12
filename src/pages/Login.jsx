@@ -6,11 +6,14 @@ import {Navigate, useNavigate} from "react-router";
 import {useSnackbar} from "notistack";
 import {Link} from "react-router-dom";
 import validateEmail from "../utils/validateEmail";
+import { useLocalStorage } from "usehooks-ts";
+import classNames from "classnames";
 
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [authUser, setAuthUser, removeAuthUser] = useLocalStorage('auth_user', null);
 
   const {currentUser, authService, setCurrentUser} = useDependencies();
   const navigate = useNavigate();
@@ -27,6 +30,9 @@ function Login() {
 
     const user = await authService.login(email, password);
     if (user) {
+      // store the email this can be used by protected routes
+      // so that protected routes can redirect immediately while waiting for firebase.
+      setAuthUser(user.email);
       setCurrentUser(true);
       // successfully logged in
       navigate(('/employees'));
@@ -42,8 +48,17 @@ function Login() {
     return true;
   }
 
+  const wrapperClasses = classNames(
+    'class flex min-h-full flex-col justify-center px-6 py-14 lg:px-8',
+    '2xl:py-[350px]',
+    'xl:py-48',
+    'lg:py-44',
+    'md:py-40',
+    'sm:py-32'
+  );
+
   return currentUser ? <Navigate to="/employees" /> : (
-    <div className="flex min-h-full flex-col justify-center px-6 py-14 lg:px-8">
+    <div className={wrapperClasses}>
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-14 w-auto" src={logo} alt="Your Company"/>
         <h2
