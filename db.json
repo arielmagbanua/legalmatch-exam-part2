@@ -72,6 +72,32 @@
           "primary": true
         }
       ]
+    },
+    {
+      "id": "71d7",
+      "firstName": "Noice",
+      "middleName": "Haha",
+      "lastName": "Tester",
+      "contacts": [
+        {
+          "id": "contact-lzqd50cs",
+          "number": "123123-123123123",
+          "primary": true
+        }
+      ],
+      "addresses": [
+        {
+          "id": "address-lzqd50ct",
+          "line1": "Hello World Street",
+          "line2": "Davao City",
+          "primary": true
+        }
+      ],
+      "birthDate": "2024-03-01",
+      "gender": "M",
+      "maritalStatus": "Married",
+      "position": "dev",
+      "dateHired": "2022-09-07"
     }
   ]
 }

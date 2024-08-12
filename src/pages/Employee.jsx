@@ -2,20 +2,20 @@ import {useNavigate, useParams} from "react-router";
 import TextField from "../components/TextField";
 import DateField from "../components/DateField";
 import {useContext, useEffect, useState} from "react";
-import DependenciesContext from "../context/Dependencies";
 import {MdDeleteForever} from "react-icons/md";
 import RoundIconButton from "../components/RoundIconButton";
 import {IoMdSave} from "react-icons/io";
 import {useSnackbar} from "notistack";
 import ContactsInfo from "../components/ContactsInfo";
 import AddressInfo from "../components/AddressInfo";
+import useDependencies from "../hooks/useDependencies";
 
 function Employee() {
   const {id} = useParams();
   const [employee, setEmployee] = useState({});
 
   const {enqueueSnackbar} = useSnackbar();
-  const {employeeService} = useContext(DependenciesContext);
+  const {employeeService} = useDependencies();
   const navigate = useNavigate();
 
   useEffect(() => {

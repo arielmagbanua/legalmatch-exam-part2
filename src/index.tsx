@@ -3,20 +3,20 @@ import React from "react";
 // @ts-ignore
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import router from "./routes";
+import router from "./routing/routes";
 import reportWebVitals from "./reportWebVitals";
 import {RouterProvider} from "react-router";
 import {Provider as DependencyProvider} from "./context/Dependencies";
 import Header from "./components/Header";
-import { SnackbarProvider } from 'notistack';
+import {SnackbarProvider} from 'notistack';
+import PrivateRoutes from "./routing/PrivateRoutes";
 
 
 const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement
 );
 root.render(
   <DependencyProvider>
-    <Header className="p-6"/>
     <SnackbarProvider autoHideDuration={3000}>
       <RouterProvider router={router}/>
     </SnackbarProvider>
