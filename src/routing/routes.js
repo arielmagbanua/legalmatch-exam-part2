@@ -1,49 +1,42 @@
-import {createBrowserRouter, Route, Routes} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import React from "react";
 import Employees from "../pages/Employees";
 import Login from "../pages/Login";
 import Employee from "../pages/Employee";
-import PrivateRoutes from "./PrivateRoutes";
-import employees from "../pages/Employees";
+import ProtectedRoutes from "./ProtectedRoutes";
 import Header from "../components/Header";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login/>,
+    element: <Login/>
   },
   {
     path: "/employees",
-    element: <PrivateRoutes/>,
-    children: [
-      {
-        path: "/employees",
-        element: (
-          <>
-            <Header className="p-6"/>
-            <Employees/>
-          </>
-        ),
-      },
-      {
-        path: "/employees/:id",
-        element: (
-          <>
-            <Header className="p-6"/>
-            <Employees/>
-          </>
-        ),
-      },
-      {
-        path: "/employees/add",
-        element: (
-          <>
-            <Header className="p-6"/>
-            <Employees/>
-          </>
-        ),
-      }
-    ]
+    element: (
+      <ProtectedRoutes>
+        <Header title="Employees"/>
+        <Employees/>
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/employees/:id",
+    element: (
+      <ProtectedRoutes>
+        <Header title="Edit Employee"/>
+        <Employee/>
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/employees/add",
+    element: (
+      <ProtectedRoutes>
+        <Header title="Add Employee"/>
+        <Employee/>
+      </ProtectedRoutes>
+    ),
   }
 ]);
 

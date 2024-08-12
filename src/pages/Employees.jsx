@@ -1,5 +1,4 @@
-import {useContext, useEffect, useState} from "react";
-import DependenciesContext from "../context/Dependencies";
+import {useEffect, useState} from "react";
 import DataTable from 'react-data-table-component';
 import getYearDifference from "../utils/dates";
 import RoundIconButton from "../components/RoundIconButton";
@@ -7,13 +6,13 @@ import {MdDeleteForever, MdEditSquare} from "react-icons/md";
 import {IoMdPersonAdd} from "react-icons/io";
 import RoundIconLink from "../components/RoundIconLink";
 import {useSnackbar} from "notistack";
-import useDependencies from "../hooks/useDependencies";
+import {useDependencies} from "../context/Dependencies";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
 
   const {enqueueSnackbar} = useSnackbar();
-  const {employeeService} = useDependencies(DependenciesContext);
+  const {employeeService} = useDependencies();
 
 
   useEffect(() => {
@@ -98,7 +97,7 @@ function Employees() {
   ];
 
   return (
-    <main className="m-6 mx-32 flex flex-col flex-nowrap">
+    <main className="px-32 flex flex-col flex-nowrap pt-[96px]">
       <section className="employees-table">
         <div className="controls flex items-start justify-start">
           <RoundIconLink

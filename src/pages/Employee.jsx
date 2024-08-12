@@ -1,14 +1,14 @@
 import {useNavigate, useParams} from "react-router";
 import TextField from "../components/TextField";
 import DateField from "../components/DateField";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {MdDeleteForever} from "react-icons/md";
 import RoundIconButton from "../components/RoundIconButton";
 import {IoMdSave} from "react-icons/io";
 import {useSnackbar} from "notistack";
 import ContactsInfo from "../components/ContactsInfo";
 import AddressInfo from "../components/AddressInfo";
-import useDependencies from "../hooks/useDependencies";
+import {useDependencies} from "../context/Dependencies";
 
 function Employee() {
   const {id} = useParams();
@@ -98,7 +98,7 @@ function Employee() {
   }
 
   return (
-    <main className="employee grid grid-cols-1 m-6 mx-24">
+    <main className="employee grid grid-cols-1 p-6 px-24 pt-[96px]">
       <div className="flex items-center justify-start px-4 border-b">
         <RoundIconButton
           className="bg-green-400 my-4"
@@ -116,6 +116,7 @@ function Employee() {
           <TextField
             id="first-name"
             placeholder="First Name"
+            label="First Name"
             value={employee.firstName}
             required
             onChange={(value) => handleBasicInfoChange('firstName', value)}
@@ -124,11 +125,13 @@ function Employee() {
             id="middle-name"
             value={employee.middleName}
             placeholder="Middle Name"
+            label="Middle Name"
             onChange={(value) => handleBasicInfoChange('middleName', value)}
           />
           <TextField
             id="last-name"
             placeholder="Last Name"
+            label="Last Name"
             value={employee.lastName}
             required
             onChange={(value) => handleBasicInfoChange('lastName', value)}
@@ -137,25 +140,30 @@ function Employee() {
             id="birt-date"
             value={employee.birthDate}
             placeholder="Birth Date"
+            label="Birth Date"
             required
+            max={'2010-04-23'}
             onChange={(value) => handleBasicInfoChange('birthDate', value)}
           />
           <TextField
             id="gender"
             value={employee.gender}
             placeholder="Gender"
+            label="Gender"
             onChange={(value) => handleBasicInfoChange('gender', value)}
           />
           <TextField
             id="marital-status"
             value={employee.maritalStatus}
             placeholder="Marital Status"
+            label="Marital Status"
             onChange={(value) => handleBasicInfoChange('maritalStatus', value)}
           />
           <TextField
             id="position"
             value={employee.position}
             placeholder="Position"
+            label="Position"
             onChange={(value) => handleBasicInfoChange('position', value)}
           />
           <DateField
@@ -163,6 +171,7 @@ function Employee() {
             type="date"
             value={employee.dateHired}
             placeholder="Date Hired"
+            label="Date Hired"
             required
             onChange={(value) => handleBasicInfoChange('dateHired', value)}
           />

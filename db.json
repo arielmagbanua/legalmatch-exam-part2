@@ -2,7 +2,8 @@
   "users": [
     {
       "email": "tester@test.com",
-      "password": "bestPassw0rd"
+      "password": "bestPassw0rd",
+      "id": "6162"
     }
   ],
   "employees": [
@@ -98,6 +99,36 @@
       "maritalStatus": "Married",
       "position": "dev",
       "dateHired": "2022-09-07"
+    },
+    {
+      "id": "b2a3",
+      "firstName": "James",
+      "middleName": "Doe",
+      "lastName": "White",
+      "birthDate": "2009-11-23",
+      "gender": "M",
+      "maritalStatus": "Married",
+      "position": "Dev",
+      "dateHired": "2022-05-17",
+      "contacts": [
+        {
+          "id": "contact-lzqms2ne",
+          "number": "1235-234234",
+          "primary": true
+        },
+        {
+          "id": "contact-lzqmzpmv",
+          "number": "23234"
+        }
+      ],
+      "addresses": [
+        {
+          "id": "address-lzqms2nf",
+          "line1": "Nice street",
+          "line2": "Agdao",
+          "primary": true
+        }
+      ]
     }
   ]
 }

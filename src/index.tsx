@@ -7,20 +7,18 @@ import router from "./routing/routes";
 import reportWebVitals from "./reportWebVitals";
 import {RouterProvider} from "react-router";
 import {Provider as DependencyProvider} from "./context/Dependencies";
-import Header from "./components/Header";
 import {SnackbarProvider} from 'notistack';
-import PrivateRoutes from "./routing/PrivateRoutes";
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <DependencyProvider>
-    <SnackbarProvider autoHideDuration={3000}>
+  <SnackbarProvider autoHideDuration={3000}>
+    <DependencyProvider>
       <RouterProvider router={router}/>
-    </SnackbarProvider>
-  </DependencyProvider>
+    </DependencyProvider>
+  </SnackbarProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

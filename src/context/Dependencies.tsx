@@ -1,29 +1,19 @@
-import {createContext, ReactNode, useState} from "react";
+import {createContext, PropsWithChildren, useContext, useState} from "react";
 import EmployeeService from "../services/EmployeeService";
 import EmployeesRepositoryImplementation from "../repositories/EmployeesRepository";
 
 // @ts-ignore
 const DependenciesContext = createContext();
 
-function Provider({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState(null);
+type DependenciesProviderProps = PropsWithChildren;
 
-  const login = (userToken: any) => {
-    setToken(userToken);
-  };
-
-  const logout = () => {
-    setToken(null);
-  };
-
-  const isAuthenticated = !!token;
+function Provider({ children }: DependenciesProviderProps) {
+  const [user, setUser] = useState(null);
 
   const dependencies = {
     employeeService: new EmployeeService(new EmployeesRepositoryImplementation()),
-    login: login,
-    logout: logout,
-    token: token,
-    isAuthenticated: isAuthenticated
+    user,
+    setUser
   }
   return (
     <DependenciesContext.Provider value={dependencies}>
@@ -33,5 +23,12 @@ function Provider({ children }: { children: ReactNode }) {
 }
 
 export {Provider};
-export default DependenciesContext;
+export const useDependencies = () => {
+  const context = useContext(DependenciesContext);
 
+  if (context === undefined) {
+    throw new Error('Dependencies must be used within a Provider.');
+  }
+
+  return context;
+}
