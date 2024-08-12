@@ -5,7 +5,6 @@ import AuthService from "../services/AuthService";
 import AuthRepositoryImplementation from "../repositories/AuthRepository";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-
 // @ts-ignore
 const DependenciesContext = createContext();
 

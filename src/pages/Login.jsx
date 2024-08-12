@@ -6,11 +6,13 @@ import {Navigate, useNavigate} from "react-router";
 import {useSnackbar} from "notistack";
 import {Link} from "react-router-dom";
 import validateEmail from "../utils/validateEmail";
+import { useLocalStorage } from "usehooks-ts";
 
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [authUser, setAuthUser, removeAuthUser] = useLocalStorage('auth_user', null);
 
   const {currentUser, authService, setCurrentUser} = useDependencies();
   const navigate = useNavigate();
@@ -27,6 +29,9 @@ function Login() {
 
     const user = await authService.login(email, password);
     if (user) {
+      // store the email this can be used by protected routes
+      // so that protected routes can redirect immediately while waiting for firebase.
+      setAuthUser(user.email);
       setCurrentUser(true);
       // successfully logged in
       navigate(('/employees'));
