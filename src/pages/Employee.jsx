@@ -61,6 +61,7 @@ function Employee() {
       // this means user is new so create it
       employeeService.add(employee)
         .then((res) => {
+          console.log(res);
           enqueueSnackbar('The new user was added successfully!');
 
           // navigate back to previous route
@@ -97,6 +98,13 @@ function Employee() {
     });
   }
 
+  const renderDeleteButton = id ? (
+    <RoundIconButton
+      className="bg-red-400 my-4"
+      icon={<MdDeleteForever/>} onClick={() => handleDeleteClick(employee.id)}
+    />
+  ) : null;
+
   return (
     <main className="employee grid grid-cols-1 p-6 px-24 pt-[96px]">
       <div className="flex items-center justify-start px-4 border-b">
@@ -105,11 +113,7 @@ function Employee() {
           icon={<IoMdSave/>}
           onClick={handleSaveClick}
         />
-        <RoundIconButton
-          className="bg-red-400 my-4"
-          icon={<MdDeleteForever/>}
-          onClick={() => handleDeleteClick(employee.id)}
-        />
+        {renderDeleteButton}
       </div>
       <div className="flex items-start justify-evenly">
         <section className="employee__basic flex flex-col mr-16 grow items-start justify-start pt-4">
