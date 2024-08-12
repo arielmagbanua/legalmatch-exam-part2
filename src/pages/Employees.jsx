@@ -7,12 +7,14 @@ import {MdDeleteForever, MdEditSquare} from "react-icons/md";
 import {IoMdPersonAdd} from "react-icons/io";
 import RoundIconLink from "../components/RoundIconLink";
 import {useSnackbar} from "notistack";
+import useDependencies from "../hooks/useDependencies";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
 
   const {enqueueSnackbar} = useSnackbar();
-  const {employeeService} = useContext(DependenciesContext);
+  const {employeeService} = useDependencies(DependenciesContext);
+
 
   useEffect(() => {
     const fetchEmployees = async () => {

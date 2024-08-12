@@ -2,19 +2,20 @@ import {useNavigate, useParams} from "react-router";
 import TextField from "../components/TextField";
 import DateField from "../components/DateField";
 import {useContext, useEffect, useState} from "react";
-import DependenciesContext from "../context/Dependencies";
 import {MdDeleteForever} from "react-icons/md";
 import RoundIconButton from "../components/RoundIconButton";
 import {IoMdSave} from "react-icons/io";
 import {useSnackbar} from "notistack";
 import ContactsInfo from "../components/ContactsInfo";
+import AddressInfo from "../components/AddressInfo";
+import useDependencies from "../hooks/useDependencies";
 
 function Employee() {
   const {id} = useParams();
   const [employee, setEmployee] = useState({});
 
   const {enqueueSnackbar} = useSnackbar();
-  const {employeeService} = useContext(DependenciesContext);
+  const {employeeService} = useDependencies();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -84,9 +85,15 @@ function Employee() {
     }
   }
 
-  const handleContactsChange = (updateContacts) => {
+  const handleContactsChange = (updatedContacts) => {
     setEmployee({
-      ...employee, contacts: updateContacts
+      ...employee, contacts: updatedContacts
+    });
+  }
+
+  const handleAddressesChange = (updatedAddresses) => {
+    setEmployee({
+      ...employee, addresses: updatedAddresses
     });
   }
 
@@ -167,15 +174,11 @@ function Employee() {
             onContactsChange={handleContactsChange}
           />
 
-          <div className="employee__others__address flex flex-col items-start justify-center">
-            <p className="text-xl">Address Info: </p>
-            <div className="flex flex-col items-start justify-center">
-              <div className="flex items-center justify-center">
-                <TextField placeholder="Address Line 1"/>
-                <TextField placeholder="Address Line 2"/>
-              </div>
-            </div>
-          </div>
+          <AddressInfo
+            className="employee__others__address"
+            addresses={employee.addresses}
+            onAddressesChange={handleAddressesChange}
+          />
         </section>
       </div>
     </main>

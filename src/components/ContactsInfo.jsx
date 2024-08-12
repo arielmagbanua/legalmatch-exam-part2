@@ -2,11 +2,28 @@ import TextField from "./TextField";
 import classNames from "classnames";
 import DeletableCheckbox from "./DeletableCheckbox";
 import {useEffect, useState} from "react";
+import {useSnackbar} from "notistack";
+import uniqid from "uniqid";
+import {IoMdAddCircle} from "react-icons/io";
 
 function ContactsInfo({className, contacts, onContactsChange}) {
   const [contactNumbers, setContactNumbers] = useState(contacts);
 
+  const {enqueueSnackbar} = useSnackbar();
+
   useEffect(() => {
+    if (!contacts) {
+      // this means user is adding a user, so initialized the list with one primary empty contact
+      setContactNumbers([
+        {
+          id: uniqid('contact-'),
+          number: '',
+          primary: true
+        }
+      ]);
+      return;
+    }
+
     setContactNumbers(contacts);
   }, [contacts]);
 
@@ -39,11 +56,20 @@ function ContactsInfo({className, contacts, onContactsChange}) {
       });
 
       setContactNumbers(updatedNumbers);
-      onContactsChange(updatedNumbers)
+      onContactsChange(updatedNumbers);
     }
   }
 
   const handleDeleteContactClick = (id) => {
+    const contactToDelete = contactNumbers.filter(
+      (contactNumber) => contactNumber.id === id
+    )[0];
+    if (contactToDelete.primary) {
+      // prevent deletion of primary contact
+      enqueueSnackbar('Deletion of primary contact is not allowed.');
+      return;
+    }
+
     const updatedNumbers = contactNumbers.filter(
       (contactNumber) => contactNumber.id !== id
     );
@@ -64,26 +90,53 @@ function ContactsInfo({className, contacts, onContactsChange}) {
     onContactsChange(updatedNumbers);
   }
 
-  const renderedContacts = contactNumbers ? contactNumbers.map((contact) => {
+  const handleAddContactClick = () => {
+    const newContact = {
+      id: uniqid('contact-'),
+      number: ''
+    }
+
+    const updatedContacts = [...contactNumbers, newContact];
+
+    setContactNumbers(updatedContacts);
+    onContactsChange(updatedContacts);
+  }
+
+  // renders one contact entry
+  const renderContactNumber = (id, number, checked) => {
+    const contactId = id || uniqid('contact-');
+
     return (
       <DeletableCheckbox
-        key={contact.id}
-        defaultChecked={contact.primary}
-        checked={contact.primary}
-        onCheck={(e) => handlePrimaryCheckClick(contact.id, e.target.checked)}
-        onDelete={(_) => handleDeleteContactClick(contact.id)}
+        key={contactId}
+        defaultChecked={checked}
+        checked={checked}
+        onCheck={(e) => handlePrimaryCheckClick(contactId, e.target.checked)}
+        onDelete={(_) => handleDeleteContactClick(contactId)}
       >
-        <TextField
-          placeholder="Phone Number"
-          value={contact.number}
-          onChange={(value) => handleContactNumberChange(contact.id, value)}/>
+        <div className="flex items-start justify-center">
+          <TextField
+            placeholder="Phone Number"
+            value={number}
+            onChange={(value) => handleContactNumberChange(contactId, value)}/>
+        </div>
       </DeletableCheckbox>
     );
-  }) : null;
+  }
+
+  const renderedContacts = contactNumbers ? contactNumbers.map(
+    (contact) => renderContactNumber(contact.id, contact.number, contact.primary)
+  ) : (renderContactNumber(null, '', true));
 
   return (
     <div className={classes}>
-      <p className="text-xl py-1.5">Contact Info: </p>
+      <div className="flex items-center justify-center">
+        <p className="text-xl py-1.5">Contact Info</p>
+        <IoMdAddCircle
+          className="ml-2 text-3xl text-green-500 cursor-pointer"
+          onClick={handleAddContactClick}
+        />
+      </div>
       <div className="flex flex-col items-start justify-center">
         {renderedContacts}
       </div>
