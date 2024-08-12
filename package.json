@@ -10,7 +10,6 @@
     "@types/node": "^16.18.104",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "axios": "^1.7.3",
     "classnames": "^2.5.1",
     "firebase": "^10.12.5",
     "i": "^0.3.7",
@@ -35,7 +34,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "docker-dev": "docker-compose -f docker-compose.dev.yml up",
-    "gh-deploy": "npm run build && gh-pages -d build"
+    "gh-deploy": "npm run build && gh-pages -d build",
+    "firebase": "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [

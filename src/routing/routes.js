@@ -6,6 +6,7 @@ import Employee from "../pages/Employee";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Header from "../components/Header";
 import RegisterUser from "../pages/RegisterUser";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         <Employees/>
       </ProtectedRoutes>
     ),
+    errorElement: <ErrorPage/>
   },
   {
     path: "/employees",

@@ -60,7 +60,7 @@ function RegisterUser() {
 
   const wrapperClassName = classNames(
     'class flex min-h-full flex-col justify-center px-6 py-14 lg:px-8',
-    '2xl:py-[350px]',
+    '2xl:py-[150px]',
     'xl:py-48',
     'lg:py-44',
     'md:py-40',

@@ -1,6 +1,6 @@
 # Legal Match Coding Exam Part 2
 
-Demo: https://arielmagbanua.github.io/legalmatch-exam-part1/
+Demo: https://amazing-project-72171.web.app/
 
 ## Available Node Scripts
 

@@ -1,4 +1,3 @@
-import axios from "axios";
 import {initializeApp} from "firebase/app";
 import {addDoc, collection, getFirestore} from "firebase/firestore";
 import firebaseConfig from "../configs/firebase";
