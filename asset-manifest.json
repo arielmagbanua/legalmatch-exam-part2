@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/legalmatch-exam-part2/static/css/main.7f6e9977.css",
+    "main.js": "/legalmatch-exam-part2/static/js/main.b2664d3f.js",
+    "static/js/453.20bea9b8.chunk.js": "/legalmatch-exam-part2/static/js/453.20bea9b8.chunk.js",
+    "static/media/logo.svg": "/legalmatch-exam-part2/static/media/logo.b220ad31ad8e49e85e912f49a2722d4a.svg",
+    "index.html": "/legalmatch-exam-part2/index.html",
+    "main.7f6e9977.css.map": "/legalmatch-exam-part2/static/css/main.7f6e9977.css.map",
+    "main.b2664d3f.js.map": "/legalmatch-exam-part2/static/js/main.b2664d3f.js.map",
+    "453.20bea9b8.chunk.js.map": "/legalmatch-exam-part2/static/js/453.20bea9b8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7f6e9977.css",
+    "static/js/main.b2664d3f.js"
+  ]
+}
