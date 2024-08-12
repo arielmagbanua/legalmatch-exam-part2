@@ -14,13 +14,15 @@ function Employees() {
   const {enqueueSnackbar} = useSnackbar();
   const {employeeService} = useDependencies();
 
-
   useEffect(() => {
-    const fetchEmployees = async () => {
-      return await employeeService.all();
-    }
+    const unsubscribe = employeeService.allRealtime((snapshot) => {
+      const employees = []
+      snapshot.forEach((doc) => employees.push({...doc.data(), id: doc.id}));
 
-    fetchEmployees().then((data) => setEmployees(data));
+      setEmployees(employees);
+    });
+
+    return unsubscribe;
   }, [employeeService]);
 
   const handleDeleteClick = (id) => {

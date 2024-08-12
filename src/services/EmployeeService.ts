@@ -7,9 +7,8 @@ class EmployeeService {
       this.repo = repo;
   }
 
-  // TODO: update the type and avoid any
-  public async all(): Promise<any[]> {
-    return this.repo.all();
+  public allRealtime(cb: (snapshot: any) => void): any {
+    return this.repo.allRealtime(cb);
   }
 
   public async get(id: number | string): Promise<any> {

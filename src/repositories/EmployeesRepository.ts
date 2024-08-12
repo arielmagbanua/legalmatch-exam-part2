@@ -1,48 +1,60 @@
 import axios from "axios";
-
-// TODO: transfer this to configuration
-const API_URL = "http://localhost:3001";
+import {initializeApp} from "firebase/app";
+import {addDoc, collection, getFirestore} from "firebase/firestore";
+import firebaseConfig from "../configs/firebase";
+import {Firestore} from "@firebase/firestore";
+import {onSnapshot, doc, getDoc, setDoc, deleteDoc} from "firebase/firestore";
+import firebase from "firebase/compat";
 
 interface EmployeesRepository {
-  all(): Promise<any[]>; // TODO: update the type and avoid any
-  get(id: number | string): Promise<any>; // TODO: update the type and avoid any
-  add(employee: any): Promise<any>; // TODO: update the type and avoid any
-  update(id: number | string, updatedEmployee: any): Promise<any>; // TODO: update the type and avoid any
+  allRealtime(cb: (snapshot: any) => void): any;
+  get(id: number | string): Promise<any>;
+  add(employee: any): Promise<any>;
+  update(id: number | string, updatedEmployee: any): Promise<any>;
   delete(id: number | string): Promise<any>;
 }
 
-class EmployeesRepositoryImplementation implements EmployeesRepository{
-  // TODO: update the type and avoid any
-  async all(): Promise<any[]> {
-    const response = await axios.get(`${API_URL}/employees`);
+class EmployeesRepositoryImplementation implements EmployeesRepository {
+  protected db: Firestore;
 
-    return response.data;
+  constructor() {
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    this.db = getFirestore(app);
   }
 
-  // TODO: update the type and avoid any
+  // @ts-ignore
+  allRealtime(cb: (snapshot: QuerySnapshot<DocumentData, DocumentData>) => void): firebase.Unsubscribe {
+    return onSnapshot(collection(this.db, 'employees'), (snapshot) => {
+      cb(snapshot);
+    });
+  }
+
   async get(id: number | string): Promise<any> {
-    const response = await axios.get(`${API_URL}/employees/${id}`);
+    const docRef = doc(this.db, "employees", id.toString());
+    const snapshot = await getDoc(docRef);
 
-    return response.data;
+    return {...snapshot.data(), id: snapshot.id};
   }
 
-  // TODO: update the type and avoid any
   async add(employee: any): Promise<any> {
-    const response = await axios.post(`${API_URL}/employees`, employee);
-
-    return response.data;
+    return await addDoc(
+      collection(this.db, 'employees'),
+      employee
+    );
   }
 
   async update(id: number | string, updatedEmployee: any): Promise<any> {
-    const response = await axios.put(`${API_URL}/employees/${id}`, updatedEmployee);
-
-    return response.data;
+    return await setDoc(
+      doc(this.db, 'employees', id.toString()),
+      updatedEmployee
+    );
   }
 
   async delete(id: number | string): Promise<any> {
-    const response = await axios.delete(`${API_URL}/employees/${id}`);
-
-    return response.data;
+    return await deleteDoc(
+      doc(this.db, 'employees', id.toString())
+    );
   }
 }
 
