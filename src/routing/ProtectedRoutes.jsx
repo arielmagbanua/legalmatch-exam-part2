@@ -3,7 +3,7 @@ import {useDependencies} from "../context/Dependencies";
 
 function ProtectedRoutes({children}) {
   const {user} = useDependencies();
-
+  return children;
   if (user) {
     return children;
   } else {

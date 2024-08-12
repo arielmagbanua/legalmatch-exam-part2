@@ -98,7 +98,7 @@ function Employee() {
   }
 
   return (
-    <main className="employee grid grid-cols-1 m-6 mx-24">
+    <main className="employee grid grid-cols-1 p-6 px-24 pt-[96px]">
       <div className="flex items-center justify-start px-4 border-b">
         <RoundIconButton
           className="bg-green-400 my-4"
@@ -142,6 +142,7 @@ function Employee() {
             placeholder="Birth Date"
             label="Birth Date"
             required
+            max={'2010-04-23'}
             onChange={(value) => handleBasicInfoChange('birthDate', value)}
           />
           <TextField

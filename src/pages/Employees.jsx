@@ -97,7 +97,7 @@ function Employees() {
   ];
 
   return (
-    <main className="m-6 mx-32 flex flex-col flex-nowrap">
+    <main className="px-32 flex flex-col flex-nowrap pt-[96px]">
       <section className="employees-table">
         <div className="controls flex items-start justify-start">
           <RoundIconLink

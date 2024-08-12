@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     path: "/employees",
     element: (
       <ProtectedRoutes>
-        <Header className="p-6"/>
+        <Header title="Employees"/>
         <Employees/>
       </ProtectedRoutes>
     ),
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     path: "/employees/:id",
     element: (
       <ProtectedRoutes>
-        <Header className="p-6"/>
+        <Header title="Edit Employee"/>
         <Employee/>
       </ProtectedRoutes>
     ),
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     path: "/employees/add",
     element: (
       <ProtectedRoutes>
-        <Header className="p-6"/>
+        <Header title="Add Employee"/>
         <Employee/>
       </ProtectedRoutes>
     ),

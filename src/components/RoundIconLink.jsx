@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 function RoundIconLink({className, to, text, icon}) {
   const classes = classNames(
-    'icon-button p-4 m-1 rounded-3xl',
+    'icon-button p-4 m-1 rounded-3xl shadow-md',
     className
   );
 

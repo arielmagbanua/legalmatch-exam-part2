@@ -10,9 +10,6 @@ type DependenciesProviderProps = PropsWithChildren;
 function Provider({ children }: DependenciesProviderProps) {
   const [user, setUser] = useState(null);
 
-  console.log('deps');
-  console.log(user);
-
   const dependencies = {
     employeeService: new EmployeeService(new EmployeesRepositoryImplementation()),
     user,

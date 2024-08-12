@@ -117,7 +117,6 @@ function ContactsInfo({className, contacts, onContactsChange}) {
         <div className="flex items-start justify-center">
           <TextField
             placeholder="Phone Number"
-            label="Phone Number"
             value={number}
             onChange={(value) => handleContactNumberChange(contactId, value)}/>
         </div>
