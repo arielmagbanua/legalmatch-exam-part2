@@ -19,6 +19,7 @@ function Employees() {
       const employees = []
       snapshot.forEach((doc) => employees.push({...doc.data(), id: doc.id}));
 
+      console.log('Employees - useEffect()');
       setEmployees(employees);
     });
 

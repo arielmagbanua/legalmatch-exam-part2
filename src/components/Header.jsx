@@ -7,7 +7,7 @@ import {useSnackbar} from "notistack";
 
 export function Header({className, title}) {
   const navigate = useNavigate();
-  const {setSignedIn, authService} = useDependencies();
+  const {authService, setCurrentUser} = useDependencies();
   const {enqueueSnackbar} = useSnackbar();
 
   const classes = classNames(
@@ -17,7 +17,7 @@ export function Header({className, title}) {
 
   const handleLogoutClick = async () => {
     authService.logout().then((_) => {
-      setSignedIn(false);
+      setCurrentUser(null);
       navigate('/login');
     }).catch((_) => {
       enqueueSnackbar('Failed to logout!');

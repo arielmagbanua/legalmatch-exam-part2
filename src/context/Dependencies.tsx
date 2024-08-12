@@ -13,24 +13,27 @@ type DependenciesProviderProps = PropsWithChildren;
 
 function Provider({ children }: DependenciesProviderProps) {
   const [currentUser, setCurrentUser] = useState(null);
-  const [signedIn, setSignedIn] = useState<boolean>(false);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const authService = new AuthService(new AuthRepositoryImplementation());
 
   useEffect(() => {
+    const currentUser = authService.currentUser();
+    if (currentUser) {
+      setCurrentUser(currentUser);
+      return;
+    }
+
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const currentUser = authService.currentUser();
-        if (currentUser) {
-          // set the current user
-          return setCurrentUser({...currentUser});
-        }
-        return setCurrentUser(null);
+        console.log('onAuthStateChanged');
+        // @ts-ignore
+        return setCurrentUser({...user});
       }
       return setCurrentUser(null);
     });
+
     return unsubscribe;
   }, []);
 
@@ -38,8 +41,7 @@ function Provider({ children }: DependenciesProviderProps) {
     employeeService: new EmployeeService(new EmployeesRepositoryImplementation()),
     authService,
     currentUser,
-    signedIn,
-    setSignedIn
+    setCurrentUser,
   }
   return (
     <DependenciesContext.Provider value={dependencies}>
